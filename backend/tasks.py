@@ -5,7 +5,16 @@ from agents import resume_agent, job_agent, match_agent
 
 resume_task = Task(
     description="""
-Analyze the resume located at {resume_path}.
+Analyze the following resume:
+
+{resume_text}
+
+Extract:
+- Skills
+- Experience
+- Key details
+
+Do NOT use tools.
 Extract key skills, experience, and important information.
 """,
     agent=resume_agent,
@@ -29,15 +38,17 @@ Job Description:
 match_task = Task(
     description="""
 Compare the candidate resume with the job description.
-Explain how well the resume matches the job.
 
-Provide:
+STRICTLY return output in the following format (do not add anything else):
 
-1. Match score (percentage)
-2. Matching skills
-3. Missing skills
-4. Final recommendation
+Match score: <percentage>
+
+Matching skills: <comma separated skills>
+
+Missing skills: <comma separated skills>
+
+Final recommendation: <short paragraph>
 """,
     agent=match_agent,
-    expected_output="Detailed match analysis"
+    expected_output="Structured match analysis"
 )
